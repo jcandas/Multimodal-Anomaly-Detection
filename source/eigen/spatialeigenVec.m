@@ -1,0 +1,152 @@
+function parameters = spatialeigenVec(methods,parameters,data)
+
+
+% Input variables
+dimdata = size(data.landsat.rawtestslice,3);
+numeigen = parameters.KL.numEigen;
+maxnumeigen = parameters.data.maxtime;
+
+% Load covariance data
+reshapedata = data.landsat.covariance;
+%reshapedata = reshapedata(data.landsat.pos,:);
+
+% Compute mean
+E = mean(reshapedata','omitnan');
+tic;
+% Remove mean
+CX = reshapedata' - E;
+CX = CX';
+
+if false
+    % Remove contributions of NaN
+    %CX(isnan(CX)) = 0;
+    %CXnz = double((CX ~=0 ));
+    %CXnz = CXnz * CXnz';
+    
+    % Covariance matrix
+    C = CX * CX';
+    %C(CXnz == 0) = 0;
+    toc;
+    
+    tic;
+    [U,D,V] = svds(C,maxnumeigen);
+    toc;
+else
+    % Covariance matrix
+    %tic;
+    %C = CX' * CX;
+    %[U2,D2,V2] = svds(C,maxnumeigen);
+    %V2 = CX * V2;
+    %V3 = normc(V2);
+    %toc;
+    %[V4,D4] = eig(C);
+
+    % Covariance matrix
+    tic;
+    C = CX' * CX;
+    [U,D,V] = svds(C,maxnumeigen);
+    V = CX * V;
+    V = normc(V);
+    toc;
+end
+
+% Eigenvalues and Eigenvectors
+
+
+%if parameters.KL.loadeigen == true
+%   fprintf("Load Eigenstructure from file -------------------\n");
+%   fprintf("\n");
+%   load(['Eigendata_',parameters.data.file]);
+%else    
+   % Compute covariance matrix
+
+%tic;
+%S = cov(reshapedata','partialrows'); 
+% S = C;
+%toc;
+
+% Check orthogonality and other errors
+relativebasiserror = norm(V'*V - eye(size(V'*V)));
+% eigenerror = norm(C*V(:,numeigen) - D(numeigen,numeigen)*V(:,numeigen));
+
+TOL = 1e-8;
+if isfield(parameters.ML.plot,'nodisplay') == true
+    if parameters.ML.plot.nodisplay == false
+        fprintf("Orthogonality Error ---------------------------- \n");
+        fprintf("Relative Error = %e \n", relativebasiserror);
+        fprintf("\n"); 
+    end
+end
+% fprintf("Eigenspace Error ---------------------------- \n");
+% fprintf("Relative Error = %e \n", eigenerror);
+% fprintf("\n"); 
+    
+if relativebasiserror > TOL
+    fprintf("Orthogonality Error ---------------------------- \n");
+    fprintf("Relative Error = %e \n", relativebasiserror);
+    fprintf("\n"); 
+end
+    
+% Sort 
+[lambda pos] = sort(diag(D),'descend');
+resid_lambda = lambda(numeigen+1:end);
+resid_V = V(:,pos(numeigen+1:end));
+
+lambda = lambda(1:maxnumeigen);
+V = V(:,pos(1:maxnumeigen));
+
+% Extract Eigenspace for the number of eigenvalues requested
+eigenV = lambda(1:numeigen);
+EigenF = V(:,1:numeigen);
+
+filtered_lambda = lambda(lambda > 1e-8);
+scatter(1:length(filtered_lambda), filtered_lambda);
+yscale("log");
+
+% Include mean in Vo basis functions 
+% and orthogonalize the basis
+% V = [E' EigenF];
+% [Q,R] = qr(V,0);
+% OrthogonalBasis = Q(:,1 : size(V,2));
+
+% M = reshape(OrthogonalBasis, [size(data.landsat.coords,1), size(data.landsat.rawtestslice,3), numeigen + 1]);
+% M = permute(M,[1 3 2]);
+
+M = reshape(EigenF, [size(data.landsat.coords,1), size(data.landsat.rawtestslice,3), numeigen]);
+M = permute(M,[1 3 2]);
+
+resid_V = reshape(resid_V, [size(data.landsat.coords,1), size(data.landsat.rawtestslice,3), maxnumeigen-numeigen]);
+
+parameters.KL.lambda = eigenV;
+parameters.KL.resid_lambda = resid_lambda;
+parameters.KL.resid_M = resid_V;
+parameters.KL.M = M;
+parameters.KL.mean = E;
+
+E = reshape(E, size(parameters.ML.input));
+
+parameters.KL.totallamba = lambda;
+
+% Remove mean from data input
+parameters.ML.input = parameters.ML.input - E;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
