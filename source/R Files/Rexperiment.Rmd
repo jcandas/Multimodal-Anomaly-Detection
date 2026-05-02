@@ -1,0 +1,52 @@
+---
+title: "Rexperiment"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+```{r}
+library(R.matlab)
+library(EnvCpt)
+library(patchwork)
+library(mcp)
+```
+
+
+```{r}
+data <- readMat('Rdata.mat')
+days <- readMat('days.mat')
+y = data$savedata[12,9,1:95,8];
+yc = y[complete.cases(y)];
+xc = days$days[complete.cases(y)];
+df = data.frame(
+  x = xc,
+  y = yc
+)
+```
+
+
+```{r}
+fit_envcpt = envcpt(df$y)  # Fit all models at once
+fit_envcpt$summary  # Show log-likelihoods
+plot(fit_envcpt)
+fit_envcpt$meancpt@cpts
+fit_envcpt$meancpt@param.est
+```
+
+
+```{r}
+model = list(y~1, 1~1)  # three intercept-only segments
+fit_mcp = mcp(model, data = df, par_x = "x")
+summary(fit_mcp)
+plot(fit_mcp) + plot_pars(fit_mcp, pars = c("cp_1"), type = "dens_overlay")
+```
