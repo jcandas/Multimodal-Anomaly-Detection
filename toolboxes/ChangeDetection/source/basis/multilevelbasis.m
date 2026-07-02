@@ -1,4 +1,4 @@
-function [transformcell, ind, datacell, datalevel] = multilevelbasis(tree,coords,degree,polymodel);
+function [transformcell, ind, datacell, datalevel, parent] = multilevelbasis(tree,coords,degree,polymodel)
 
 % Construct Multi-Level basis in R^{d} described by random projection tree
 % degree - Hyperbolic Cross, Total Degree, degree level
@@ -6,6 +6,7 @@ function [transformcell, ind, datacell, datalevel] = multilevelbasis(tree,coords
 
 % Change tree format 
 [leftchild, rightchild, parent, datacell, datalevel] = convertbintreetolist(tree);
+clear tree;
 
 % Sort datalevel
 [sortdatalevel, ind] = sort(datalevel);

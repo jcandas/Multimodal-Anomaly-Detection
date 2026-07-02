@@ -7,14 +7,15 @@
 methods.initialization = @initlandsatsentinelVec;
 methods.processdata = @processdatafullLandsatSentinelVec;
 
-
 % Other methods
 methods.domaindata = @domaindataVec;
-methods.KLeigenspace = @landsateigenVec;
+methods.KLeigenspace = @spatialeigenVec;
 methods.KLmultilevel = @multilevelHB;
 methods.MLtest = @nulltesttransform;
 methods.MLtransform = @mltransform;
+
 methods.KLMLplot = @plotHBlandsatVec;
+
 methods.statsprocess = @statsprocess;
 methods.hypothesistests = @hypothesistests;
 

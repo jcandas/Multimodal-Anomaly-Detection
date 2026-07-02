@@ -24,23 +24,24 @@ else
     CX = CX';
 
     % Covariance matrix
-    %tic;
-    %C = CX * CX';
-    %toc;
+    tic;
+    C = CX * CX';
+    toc;
 
     parameters.KL.empty = false;
 
-    %tic;
-    %[U,D,V] = svd(C);
-    %toc;
-
     tic;
-    C = CX' * CX;
-    [U,D,Q] = svd(C);
-    Q = CX * Q;
-    [V,R] = qr(Q,0);
-    V = normc(V);
+    [U,D,V] = svd(C);
     toc;
+
+    % Can use linear algebra trick to calculate eigenvectors, value faster
+    % tic;
+    % C = CX' * CX;
+    % [U,D,Q] = svd(C);
+    % Q = CX * Q;
+    % [V,R] = qr(Q,0);
+    % V = normc(V);
+    % toc;
 
 end
 
@@ -71,34 +72,14 @@ sum(resid_lambda)
 lambda = lambda(1:maxnumeigen);
 V = V(:,pos(1:maxnumeigen));
 
-%end
 
-%if parameters.KL.saveeigen == true
-%    fprintf("Save Eigenstructure from file ------------------ \n");
-%    fprintf("\n"); 
-%    save(['Eigendata_',parameters.data.file],'lambda','V');
-%end
-
-
-% [lambda pos] = sort(diag(D),'descend');
 eigenV = lambda(1:numeigen);
 EigenF = V(:,1:numeigen);
 
-filtered_lambda = lambda(lambda > 1e-8);
-scatter(1:length(filtered_lambda), filtered_lambda);
-yscale("log");
-
-% Old
-%[lambda pos] = sort(diag(D),'descend');
-%eigenV = lambda(1:numeigen);
-%EigenF = V(:,pos(1:numeigen));
-
-
-% Include mean in Vo basis functions 
-% and orthogonalize the basis
-%V = [E' EigenF];
-%[Q,R] = qr(V,0);
-%OrthogonalBasis = Q(:,1 : size(V,2));
+% Can plot eigenvalues
+% filtered_lambda = lambda(lambda > 1e-8);
+% scatter(1:length(filtered_lambda), filtered_lambda);
+% yscale("log");
 
 
 parameters.KL.lambda = eigenV;
@@ -106,6 +87,5 @@ parameters.KL.M = EigenF;
 
 parameters.KL.resid_lambda = resid_lambda;
 parameters.KL.resid_M = resid_V;
-%parameters.KL.M = OrthogonalBasis;
 parameters.KL.mean = E;
 parameters.KL.totallamba = lambda;

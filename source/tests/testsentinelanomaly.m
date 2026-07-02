@@ -13,11 +13,12 @@ methods.processdata = @processdatafullLandsatSentinel;
 
 % Other methods
 methods.domaindata = @domaindata;
-methods.KLeigenspace = @landsateigen;
+methods.KLeigenspace = @spatialeigen;
 methods.KLmultilevel = @multilevelHB;
 methods.MLtest = @nulltesttransform;
 methods.MLtransform = @mltransform;
 methods.KLMLplot = @plotHBlandsat;
+
 methods.statsprocess = @statsprocess;
 methods.hypothesistests = @hypothesistests;
 %methods.snapshots = @missingsnapshots;

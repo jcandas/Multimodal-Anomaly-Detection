@@ -16,39 +16,23 @@ tic;
 % Remove mean
 CX = reshapedata' - E;
 CX = CX';
+  
+% Covariance matrix
+C = CX * CX';
+toc;
 
-if false
-    % Remove contributions of NaN
-    %CX(isnan(CX)) = 0;
-    %CXnz = double((CX ~=0 ));
-    %CXnz = CXnz * CXnz';
-    
-    % Covariance matrix
-    C = CX * CX';
-    %C(CXnz == 0) = 0;
-    toc;
-    
-    tic;
-    [U,D,V] = svds(C,maxnumeigen);
-    toc;
-else
-    % Covariance matrix
-    %tic;
-    %C = CX' * CX;
-    %[U2,D2,V2] = svds(C,maxnumeigen);
-    %V2 = CX * V2;
-    %V3 = normc(V2);
-    %toc;
-    %[V4,D4] = eig(C);
+tic;
+[U,D,V] = svds(C,maxnumeigen);
+toc;
 
-    % Covariance matrix
-    tic;
-    C = CX' * CX;
-    [U,D,V] = svds(C,maxnumeigen);
-    V = CX * V;
-    V = normc(V);
-    toc;
-end
+% Can use linear algebra trick to calculate eigenvectors, values faster
+% Covariance matrix
+% tic;
+% C = CX' * CX;
+% [U,D,V] = svds(C,maxnumeigen);
+% V = CX * V;
+% V = normc(V);
+% toc;
 
 % Eigenvalues and Eigenvectors
 
@@ -99,9 +83,9 @@ V = V(:,pos(1:maxnumeigen));
 eigenV = lambda(1:numeigen);
 EigenF = V(:,1:numeigen);
 
-filtered_lambda = lambda(lambda > 1e-8);
-scatter(1:length(filtered_lambda), filtered_lambda);
-yscale("log");
+% filtered_lambda = lambda(lambda > 1e-8);
+% scatter(1:length(filtered_lambda), filtered_lambda);
+% yscale("log");
 
 % Include mean in Vo basis functions 
 % and orthogonalize the basis

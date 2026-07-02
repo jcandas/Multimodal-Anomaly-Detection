@@ -1,4 +1,4 @@
-function parameters = plotgaussianResid(parameters,data)
+function parameters = plotgaussian(parameters,data)
 
 % Upload variables
 dimdata = parameters.ML.dimdata;

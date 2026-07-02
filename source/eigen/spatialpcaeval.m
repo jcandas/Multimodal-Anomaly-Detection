@@ -23,23 +23,24 @@ else
     CX = CX';
 
     % Covariance matrix
-    %tic;
-    %C = CX * CX';
-    %toc;
+    tic;
+    C = CX * CX';
+    toc;
 
     parameters.KL.empty = false;
 
-    %tic;
-    %[U,D,V] = svd(C);
-    %toc;
-
     tic;
-    C = CX' * CX;
-    [U,D,Q] = svd(C);
-    Q = CX * Q;
-    [V,R] = qr(Q,0);
-    V = normc(V);
+    [U,D,V] = svd(C);
     toc;
+
+    % Can use linear algebra trick to compute eigenvectors, values faster
+    % tic;
+    % C = CX' * CX;
+    % [U,D,Q] = svd(C);
+    % Q = CX * Q;
+    % [V,R] = qr(Q,0);
+    % V = normc(V);
+    % toc;
 
 end
 

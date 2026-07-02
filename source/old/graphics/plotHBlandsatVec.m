@@ -1,4 +1,4 @@
-function parameters = plotHBlandsatVecResid(parameters,data)
+function parameters = plotHBlandsatVec(parameters,data)
 
 % Upload variables
 dimdata = size(data.landsat.rawdata,4);
@@ -106,7 +106,6 @@ for level = maxlevel : -1 : max(maxlevel - numlevel,0)
             listI = nodeindex(n);
             listI = listI{1};
             val = norm(dcoeffs{n});
-            pval = significancedcoeffs{n};
             
                 selectcoord = coord(listI,:);
                 theta = selectcoord(:,1);
@@ -129,12 +128,8 @@ for level = maxlevel : -1 : max(maxlevel - numlevel,0)
                 
                 % Text on each cell
 
-                if pval < tol
-                    %text(mean(phi), mean(theta), sprintf("%2.1f", val * normvalrescale),...
-                    %    'horizontalalignment', 'center','FontSize', 20,'Interpreter','latex','Color',[1 1 0]);
-                    %text(mean(phi), mean(theta) -1 -round(val), sprintf("%0.2f", pval * normvalrescale),...
-                    %    'horizontalalignment', 'center','FontSize', 20,'Interpreter','latex','Color',[1 1 0
-                    text(mean(phi), mean(theta), sprintf("%0.2f", pval * normvalrescale),...
+                if val > tol
+                    text(mean(phi), mean(theta), sprintf("%2.1f", val * normvalrescale), ...
                         'horizontalalignment', 'center','FontSize', 20,'Interpreter','latex','Color',[1 1 0]);
                 end
                 if parameters.graphics.figtitle == true

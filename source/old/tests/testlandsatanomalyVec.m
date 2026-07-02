@@ -4,28 +4,19 @@
 %% Methods
 
 % Landsat and Sentinel data
-% methods.initialization = @initlandsatsentinelVec;
-methods.initialization = @initlandsatsentinelVec2;
-% methods.processdata = @processdatafullLandsatSentinelVec;
-methods.processdata = @processdatafullLandsatSentinelVecfillnan;
+methods.initialization = @initlandsatsentinelVec;
+methods.processdata = @processdatafullLandsatSentinelVec;
+
 
 % Other methods
 methods.domaindata = @domaindataVec;
-% methods.KLeigenspace = @landsateigenVec;
-methods.KLeigenspace = @spatialeigenVec;
-% methods.KLmultilevel = @multilevelHB;
-methods.KLmultilevel = @multilevelHB2;
+methods.KLeigenspace = @landsateigenVec;
+methods.KLmultilevel = @multilevelHB;
 methods.MLtest = @nulltesttransform;
 methods.MLtransform = @mltransform;
-
-% methods.KLMLplot = @plotHBlandsatVec;
-methods.KLMLplot = @plotHBlandsatVecResid;
-
-% methods.statsprocess = @statsprocess;
-% methods.hypothesistests = @hypothesistests;
-
-methods.statsprocess = @statsprocessprojnest;
-methods.hypothesistests = @hypothesistestsprojnest;
+methods.KLMLplot = @plotHBlandsatVec;
+methods.statsprocess = @statsprocess;
+methods.hypothesistests = @hypothesistests;
 
 
 %% Modules

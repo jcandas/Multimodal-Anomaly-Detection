@@ -28,9 +28,14 @@ elseif maxtime > removedata2
         (removedata2 + 1)   :   maxtime];
 end
 
+
+
 % Data EVI
 datos = squeeze(ts(:,:, timedata,modality));
 %datos = squeeze(ts(:,:,:,modality));
+
+datos = fillnan3d(datos,3);
+
 reshapedata = reshape(datos,[size(datos,1) * size(datos,2) size(datos,3)]);
 
 % Store Data

@@ -1,4 +1,4 @@
-function [data,parameters] = processdatagaussfillnan(methods,parameters)
+function [data,parameters] = processdatagauss(methods,parameters)
 
 % Process and load data
 maxtime = parameters.data.maxtime;

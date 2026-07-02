@@ -21,8 +21,9 @@ parameters.data.patchsizeI = 1:100;
 
 
 % Data file
-parameters.data.file = '../data/gaussian_test/data100_L0.25_Lp0.25_m200.mat';
-parameters.data.test_file = '../data/gaussian_test/data100_L0.25_Lp0.25_m200_testall.mat';
+parameters.data.file = '../data/gaussian_test/train_L0.25_Lp0.25_m10.mat';
+parameters.data.test_file = '../data/gaussian_test/test_L0.25_Lp0.25_m10.mat';
+parameters.data.test_idx = 5001;
 
  
 % Ploting parameters

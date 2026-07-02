@@ -1,4 +1,4 @@
-function [data,parameters] = processdatafullLandsatSentinelfillnan(methods,parameters)
+function [data,parameters] = processdatafullLandsatSentinel(methods,parameters)
 
 % Process and load data
 maxday = parameters.data.maxday;
@@ -53,7 +53,6 @@ maxtime = min(find(a));
 % datos = squeeze(ts(:,:, timedata,modality));
 datos = squeeze(ts(:,:,1 : maxtime, modality));
 
-datos = fillnan3d(datos,3);
 
 reshapedata = reshape(datos,[size(datos,1) * size(datos,2) size(datos,3)]);
 

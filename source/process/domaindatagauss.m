@@ -7,8 +7,8 @@ rawdata = data.landsat.rawdata;
 
 load(parameters.data.test_file)
 
-img = imgs(:,:,5800);
-gauss = gauss_all(:,:,5800);
+img = imgs(:,:,parameters.data.test_idx);
+gauss = gauss_all(:,:,parameters.data.test_idx);
 
 testslice = img;
 
