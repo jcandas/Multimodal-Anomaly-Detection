@@ -1,6 +1,6 @@
 function parameters = pcathreshold(parameters)
 
-significance = parameters.test.significance;
+significance = parameters.stats.significance;
 lambdas = parameters.KL.lambda;
 r = parameters.KL.numEigen;
 

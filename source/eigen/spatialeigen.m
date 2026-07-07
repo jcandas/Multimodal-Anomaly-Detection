@@ -24,25 +24,25 @@ else
     CX = CX';
 
     % Covariance matrix
-    % tic;
-    % C = CX * CX';
-    % toc;
+    tic;
+    C = CX * CX';
+    toc;
 
     parameters.KL.empty = false;
 
-    % tic;
-    % [V,D] = eig(C);
-    % toc;
-
     tic;
-    C = CX' * CX;
-    %[V,D] = eig(C);
-    %V = CX * V;
-    [U,D,Q] = svd(C);
-    Q = CX * Q;
-    [V,R] = qr(Q,0);
-    V = normc(V);
+    % [V,D] = eig(C);
+    [U,D,V] = svd(C);
     toc;
+
+    % Can use linear algebra trick to calculate eigenvectors, values faster
+    % tic;
+    % C = CX' * CX;
+    % [U,D,Q] = svd(C);
+    % Q = CX * Q;
+    % [V,R] = qr(Q,0);
+    % V = normc(V);
+    % toc;
 
 end
 
@@ -66,41 +66,21 @@ end
 
 
 [lambda, pos] = sort(diag(D),'descend');
-resid_lambda = lambda(numeigen+1:end);
-resid_V = V(:,pos(numeigen+1:end));
+resid_lambda = lambda(numeigen+1:maxnumeigen);
+resid_V = V(:,pos(numeigen+1:maxnumeigen));
 sum(resid_lambda)
 
 lambda = lambda(1:maxnumeigen);
 V = V(:,pos(1:maxnumeigen));
 
-%end
 
-%if parameters.KL.saveeigen == true
-%    fprintf("Save Eigenstructure from file ------------------ \n");
-%    fprintf("\n"); 
-%    save(['Eigendata_',parameters.data.file],'lambda','V');
-%end
-
-
-% [lambda pos] = sort(diag(D),'descend');
 eigenV = lambda(1:numeigen);
 EigenF = V(:,1:numeigen);
 
-filtered_lambda = lambda(lambda > 1e-8);
-scatter(1:length(filtered_lambda), filtered_lambda);
-yscale("log");
-
-% Old
-%[lambda pos] = sort(diag(D),'descend');
-%eigenV = lambda(1:numeigen);
-%EigenF = V(:,pos(1:numeigen));
-
-
-% Include mean in Vo basis functions 
-% and orthogonalize the basis
-%V = [E' EigenF];
-%[Q,R] = qr(V,0);
-%OrthogonalBasis = Q(:,1 : size(V,2));
+% Can plot eigenvalues
+% filtered_lambda = lambda(lambda > 1e-8);
+% scatter(1:length(filtered_lambda), filtered_lambda);
+% yscale("log");
 
 
 parameters.KL.lambda = eigenV;
@@ -108,10 +88,8 @@ parameters.KL.M = EigenF;
 
 parameters.KL.resid_lambda = resid_lambda;
 parameters.KL.resid_M = resid_V;
-%parameters.KL.M = OrthogonalBasis;
 parameters.KL.mean = E;
 parameters.KL.totallamba = lambda;
 
 % Remove mean from data input
 parameters.ML.input = parameters.ML.input - E';
-%parameters.ML.input = parameters.ML.input;

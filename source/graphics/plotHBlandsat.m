@@ -154,12 +154,7 @@ h = figure(3);
 % Plot multilevel coefficients --------------------------------------------
 for level = maxlevel : -1 : max(maxlevel - numlevel,0) 
     subplot_tight(1,maxlevel + 1,figcounter,coeffstight);
-    %imagesc(data.landsat.rawtestslice);
-    %imagescwithnan(data.landsat.rawtestslice, winter, [1 1 1])
     imagesc(testsliceColor);
-    %caxis([0 maxbarslice])
-    %colormap winter
-    %shading interp
     axis square
     axis off
     axis vis3d
@@ -171,6 +166,7 @@ for level = maxlevel : -1 : max(maxlevel - numlevel,0)
             listI = nodeindex(n);
             listI = listI{1};
             val = norm(dcoeffs{n});
+            pval = significancedcoeffs{n};
             
                 selectcoord = coord(listI,:);
                 theta = selectcoord(:,1);
@@ -193,8 +189,8 @@ for level = maxlevel : -1 : max(maxlevel - numlevel,0)
                 
                 % Text on each cell
 
-                if val > tol
-                    text(mean(phi), mean(theta), sprintf("%2.1f", val * normvalrescale),...
+                if pval < tol
+                    text(mean(phi), mean(theta), sprintf("%0.2f", pval * normvalrescale),...
                         'horizontalalignment', 'center','FontSize', 20,'Interpreter','latex','Color',[1 1 0]);
                 end
                 if parameters.graphics.figtitle == true

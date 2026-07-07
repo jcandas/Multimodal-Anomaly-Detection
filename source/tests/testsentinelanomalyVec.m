@@ -10,7 +10,7 @@ methods.processdata = @processdatafullLandsatSentinelVec;
 
 % Other methods
 methods.domaindata = @domaindataVec;
-methods.KLeigenspace = @landsateigenVec;
+methods.KLeigenspace = @spatialeigenVec;
 methods.KLmultilevel = @multilevelHB;
 methods.MLtest = @nulltesttransform;
 methods.MLtransform = @mltransform;

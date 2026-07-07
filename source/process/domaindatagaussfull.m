@@ -1,4 +1,4 @@
-function [parameters,data] = domaindatagausseval(methods,parameters,data,test_idx);
+function [parameters,data] = domaindatagaussfull(methods,parameters,data,test_idx);
 
 % Extra domain of the test data
 

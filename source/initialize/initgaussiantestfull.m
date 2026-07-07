@@ -1,5 +1,5 @@
 % Initialize landsat anomaly detection
-function parameters = initgaussiantesteval;
+function parameters = initgaussiantestfull;
 
 % Satellite data parameters
 parameters.data.maxtime = 100;
@@ -21,11 +21,13 @@ parameters.data.patchsizeI = 1:100;
 
 
 % Data file
-parameters.data.file = '../data/gaussian_test/data100_L0.25_Lp0.25_m200.mat';
-%parameters.data.test_file = '../data/gaussian_test/data100_L0.25_Lp0.25_heights0.05-0.5.mat';
-%parameters.data.test_file = '../data/gaussian_test/data100_L0.25_Lp0.25_heights0.01-0.05.mat';
-parameters.data.test_file = '../data/gaussian_test/data100_L0.25_Lp0.25_m200_testall.mat';
+parameters.data.file = '../data/gaussian_test/train_L0.25_Lp0.25_m10.mat';
+parameters.data.test_file = '../data/gaussian_test/test_L0.25_Lp0.25_m10.mat';
+parameters.data.out_file = '../data/gaussian_test/results_L0.25_Lp0.25_m10.csv';
 
+% Explicitly define start and end indices if you want to run over a subset
+parameters.data.start_idx = 1;
+parameters.data.end_idx = -1;
  
 % Ploting parameters
 parameters.ML.plot.tol = 1;
@@ -46,6 +48,3 @@ parameters.graphics.coeffstight = 0.01;
 parameters.stats.significance = 0.05;
 parameters.ML.dimdata = 1;
 parameters.stats.nest = false;
-
-%test parameters
-parameters.test.significance = 0.05;

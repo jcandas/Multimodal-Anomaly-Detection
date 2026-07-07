@@ -10,7 +10,7 @@ testsliceColor = data.landsat.testslicecolor;
 numlevel = parameters.ML.plot.numlevel;
 maxlevel = parameters.ML.plot.maxlevel;
 
-sig = parameters.test.significance;
+sig = parameters.stats.significance;
 idx = parameters.test.index;
 
 gauss = data.test_gauss(:,:,idx);

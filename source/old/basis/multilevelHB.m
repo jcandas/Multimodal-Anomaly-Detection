@@ -1,4 +1,4 @@
-function parameters = multilevelHB2(parameters,methods)
+function parameters = multilevelHB(parameters,methods)
 
 % Input eigenspace
 polymodel.M = parameters.KL.M;
@@ -19,21 +19,13 @@ toc;
 fprintf('\n');
 fprintf('Create multilevel basis ------------------------\n');
 tic;
-[multileveltree, ind, datacell, datalevel, parent]  = multilevelbasis2(datatree, sortdata, degree, polymodel);
+[multileveltree, ind, datacell, datalevel]  = multilevelbasis(datatree, sortdata, degree, polymodel);
 toc;
-
-% Clear data tree to save memory
-clear datatree;
-
-parent(1) = -1;
 
 parameters.ML.multilevetree = multileveltree;
 parameters.ML.ind = ind;
 parameters.ML.datacell = datacell;
 parameters.ML.datalevel = datalevel;
-% parameters.ML.leftchild = leftchild;
-% parameters.ML.rightchild = rightchild;
-parameters.ML.parent = parent;
 
 
 % Test transform

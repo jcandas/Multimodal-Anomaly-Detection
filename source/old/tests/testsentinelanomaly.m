@@ -3,24 +3,24 @@
 %% Methods
 
 % Landsat only from initial dataset
-methods.initialization = @initlandsat;
-methods.processdata = @processdata;
+% methods.initialization = @initlandsat;
+% methods.processdata = @processdata;
 
 % Landsat and Sentinel data
-% methods.initialization = @initlandsatsentinel;
-% methods.processdata = @processdatafullLandsatSentinel;
+methods.initialization = @initlandsatsentinel;
+methods.processdata = @processdatafullLandsatSentinel;
 
 
 % Other methods
 methods.domaindata = @domaindata;
-methods.KLeigenspace = @spatialeigen;
+methods.KLeigenspace = @landsateigen;
 methods.KLmultilevel = @multilevelHB;
 methods.MLtest = @nulltesttransform;
 methods.MLtransform = @mltransform;
 methods.KLMLplot = @plotHBlandsat;
-
 methods.statsprocess = @statsprocess;
 methods.hypothesistests = @hypothesistests;
+%methods.snapshots = @missingsnapshots;
 
 
 

@@ -3,10 +3,10 @@ function parameters = initlandsatsentinel;
 
 % Satellite data parameters
 parameters.data.maxday = 3214;
-parameters.data.testdata = 121; % day 3704
-%parameters.data.testdata = 104; % day 3484
-%parameters.data.testdata = 82; % day 3344
-parameters.data.fulltestdata = true; 
+%parameters.data.testdata = 121; % day 3704
+parameters.data.testdata = 104; % day 3484
+parameters.data.testdata = 82; % day 3344
+%parameters.data.fulltestdata = true; 
 
 parameters.data.num_remove = 0;
 

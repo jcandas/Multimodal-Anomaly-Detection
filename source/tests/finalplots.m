@@ -1,5 +1,5 @@
-T_gauss = readtable("../data/gaussian_test/data100_L0.25_Lp0.25_m200_testall_M85_level6.csv");
-T_pca = readtable("../data/gaussian_test/data100_L0.25_Lp0.25_m200_testall_PCA_M85.csv");
+T_gauss = readtable("../data/gaussian_test/results_L0.25_Lp0.25_m10.csv");
+T_pca = readtable("../data/gaussian_test/test_PCA.csv");
 
 %T_gauss = readtable("../data/gaussian_test/data1000_L0.25_Lp0.25_testall_M85_level6.csv");
 %T_pca = readtable("../data/gaussian_test/data1000_L0.25_Lp0.25_testall_PCA_M85.csv");

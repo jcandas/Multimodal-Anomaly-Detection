@@ -3,8 +3,8 @@
 %% Methods
 
 % Data for synthetic gaussian test
-methods.initialization = @initpcatestfull;
-methods.processdata = @processdatagauss;
+methods.initialization = @initpcatesteval;
+methods.processdata = @processdatagaussfillnan;
 
 
 % Other methods

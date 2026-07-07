@@ -19,13 +19,19 @@ toc;
 fprintf('\n');
 fprintf('Create multilevel basis ------------------------\n');
 tic;
-[multileveltree, ind, datacell, datalevel]  = multilevelbasis(datatree, sortdata, degree, polymodel);
+[multileveltree, ind, datacell, datalevel, parent]  = multilevelbasis(datatree, sortdata, degree, polymodel);
 toc;
+
+% Clear data tree to save memory
+clear datatree;
+
+parent(1) = -1;
 
 parameters.ML.multilevetree = multileveltree;
 parameters.ML.ind = ind;
 parameters.ML.datacell = datacell;
 parameters.ML.datalevel = datalevel;
+parameters.ML.parent = parent;
 
 
 % Test transform

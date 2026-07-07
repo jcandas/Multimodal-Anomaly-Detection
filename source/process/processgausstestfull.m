@@ -1,4 +1,4 @@
-function [parameters,data] = processgausstesteval(methods,parameters,data);
+function [parameters,data] = processgausstestfull(methods,parameters,data);
 
 % Extra domain of the test data
 
@@ -51,6 +51,7 @@ data.landsat.pos = valpos;
 
 % Store copy in parameters to be used for building multilevel basis
 parameters.KL.coord = data.landsat.coords;
+parameters.ML.input = data.landsat.val;
 
 % Store test images and gaussians
 data.test_imgs = imgs;

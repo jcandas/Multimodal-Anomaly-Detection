@@ -1,4 +1,4 @@
-function [data,parameters] = processdatafullLandsatSentinelVecfillnan(methods,parameters)
+function [data,parameters] = processdatafullLandsatSentinelVec(methods,parameters)
 
 % Process and load data
 maxday = parameters.data.maxday;
@@ -71,9 +71,6 @@ maxtime = min(find(a));
 % Data All Bands
 datos = ts(:,:,1 : maxtime, 1 : modality - 1);
 datos = permute(datos,[1 2 4 3]);
-
-datos = fillnan4d(datos,3);
-
 %reshapedataAll = reshape(datos,[size(datos,1) * size(datos,2) size(datos,3)]);
 %reshapedata = reshape(datos,[size(datos,1) * size(datos,2) * size(datos,3), size(datos,4)]);
 reshapedata = datos;
