@@ -42,7 +42,7 @@ parameters.dataset.outfile = '../data/gaussian_test/test_L0.25_Lp0.25_m10.mat';
 
 orders = [1e-4, 1e-3, 1e-2];
 spacing = 2;
-heights = zeros(1, length(orders)+2);
+heights = zeros(1, 9*length(orders)+2);
 idx = 2;
 
 for i = 1:length(orders)
