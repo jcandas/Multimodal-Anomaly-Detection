@@ -30,19 +30,22 @@ else
 
     parameters.KL.empty = false;
 
-    tic;
-    % [V,D] = eig(C);
-    [U,D,V] = svd(C);
-    toc;
+    if ~parameters.KL.transpose
+        tic;
+        % [V,D] = eig(C);
+        [U,D,V] = svd(C);
+        toc;
 
-    % Can use linear algebra trick to calculate eigenvectors, values faster
-    % tic;
-    % C = CX' * CX;
-    % [U,D,Q] = svd(C);
-    % Q = CX * Q;
-    % [V,R] = qr(Q,0);
-    % V = normc(V);
-    % toc;
+    else
+        % Can use linear algebra trick to calculate eigenvectors, values faster
+        tic;
+        C = CX' * CX;
+        [U,D,Q] = svd(C);
+        Q = CX * Q;
+        [V,R] = qr(Q,0);
+        V = normc(V);
+        toc;
+    end
 
 end
 
@@ -78,9 +81,9 @@ eigenV = lambda(1:numeigen);
 EigenF = V(:,1:numeigen);
 
 % Can plot eigenvalues
-% filtered_lambda = lambda(lambda > 1e-8);
-% scatter(1:length(filtered_lambda), filtered_lambda);
-% yscale("log");
+if parameters.KL.plotEigs
+    ploteigs(lambda, numeigen)
+end
 
 
 parameters.KL.lambda = eigenV;

@@ -27,7 +27,8 @@ parameters.data.modality = 6;
 % Number of eigenfunctions
 % parameters.KL.numEigen = 29;
 parameters.KL.numEigen = 60;
-
+parameters.KL.plotEigs = true;
+parameters.KL.transpose = false;
 %parameters.KL.saveeigen = false;
 %parameters.KL.loadeigen = false;
 

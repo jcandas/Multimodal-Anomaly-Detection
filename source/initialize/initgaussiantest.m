@@ -11,7 +11,8 @@ parameters.data.num_remove = 0;
 % Number of eigenfunctions
 % parameters.KL.numEigen = 29;
 parameters.KL.numEigen = 85;
-
+parameters.KL.plotEigs = false;
+parameters.KL.transpose = false;
 %parameters.KL.saveeigen = false;
 %parameters.KL.loadeigen = false;
 
