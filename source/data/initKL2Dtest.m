@@ -11,7 +11,7 @@ d = 1;
 coord = linspace(0,d,numofpoints)';
 
 % Number of eigenfunctions
-parameters.KL.l = 200;
+parameters.KL.l = 10;
 
 % Parameters of covariance function
 Lc = 0.01;
@@ -34,7 +34,6 @@ parameters.KL.plotrealization = false; % Plot a relization
 parameters.ML.plot.level = numlevel;
 
 % Dataset parameters
-parameters.dataset.numexamples = 200;
 parameters.dataset.gaussmin = 0.1;
 parameters.dataset.gaussmax = 0.9;
 parameters.dataset.gaussstd = 0.05;
@@ -58,4 +57,9 @@ for i = 1:length(orders)
     end
 end
 
+parameters.dataset.numexamples = 200;
 parameters.dataset.gaussheights = heights;
+
+% Use these parameters if you want a much smaller test set
+% parameters.dataset.numexamples = 10;
+% parameters.dataset.gaussheights = [0,1e-3, 1e-2, 1e-1];

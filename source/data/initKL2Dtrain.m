@@ -11,7 +11,7 @@ d = 1;
 coord = linspace(0,d,numofpoints)';
 
 % Number of eigenfunctions
-parameters.KL.l = 200;
+parameters.KL.l = 10;
 
 % Parameters of covariance function
 Lc = 0.01;

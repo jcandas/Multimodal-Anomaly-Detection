@@ -1,4 +1,4 @@
-T = readtable("../data/gaussian_test/data1000_L0.25_Lp0.25_testall_M85_level6.csv");
+T = readtable("../data/gaussian_test/results_L0.25_Lp0.25_m10.csv");
 
 heights = unique(T{:,"gauss_height"});
 %heights = heights(2:end);

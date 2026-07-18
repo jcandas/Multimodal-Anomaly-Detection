@@ -21,18 +21,20 @@ CX = CX';
 C = CX * CX';
 toc;
 
-tic;
-[U,D,V] = svds(C,maxnumeigen);
-toc;
+if ~parameters.KL.transpose
+    tic;
+    [U,D,V] = svds(C,maxnumeigen);
+    toc;
 
-% Can use linear algebra trick to calculate eigenvectors, values faster
-% Covariance matrix
-% tic;
-% C = CX' * CX;
-% [U,D,V] = svds(C,maxnumeigen);
-% V = CX * V;
-% V = normc(V);
-% toc;
+else
+    % Can use linear algebra trick to calculate eigenvectors, values faster
+    tic;
+    C = CX' * CX;
+    [U,D,V] = svds(C,maxnumeigen);
+    V = CX * V;
+    V = normc(V);
+    toc;
+end
 
 % Eigenvalues and Eigenvectors
 
@@ -83,9 +85,10 @@ V = V(:,pos(1:maxnumeigen));
 eigenV = lambda(1:numeigen);
 EigenF = V(:,1:numeigen);
 
-% filtered_lambda = lambda(lambda > 1e-8);
-% scatter(1:length(filtered_lambda), filtered_lambda);
-% yscale("log");
+% Can plot eigenvalues
+if parameters.KL.plotEigs
+    ploteigs(lambda, numeigen)
+end
 
 % Include mean in Vo basis functions 
 % and orthogonalize the basis
