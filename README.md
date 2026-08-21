@@ -114,7 +114,7 @@ parameters.dtatset.heights: different gaussian heights to include in the dataset
 
 (3) To generate the results in Figure 6 from the pca-based method, we use the script:
 
-source/tests/testpcaeval.m
+/source/tests/testpcaeval.m
 
 The initialization file is:
 
@@ -139,7 +139,7 @@ parameters.stats.significance: significance level to use for detection
 
 (4) To generate the results used to create Figure 6 from out method, we use the script:
 
-source/test/testgaussianfull.m
+/source/test/testgaussianfull.m
 
 The initialization file is:
 
@@ -176,7 +176,6 @@ The initialization file is:
 /source/initialize/initgaussiantest.m
 
 Here, the parameters are the same as the full test, with the inclusion of:
-
 
 parameters.data.test_idx: index of the test set to run our method on
 
@@ -244,6 +243,9 @@ parameters.data.testdata = 121; % day 3704
 %parameters.data.testdata = 104; % day 3484
 %parameters.data.testdata = 82; % day 3344
 
+**If you have limited computational resources, you can again change this to true:
+parameters.KL.transpose: whether to speed up the computation by using a linear algebra trick on the covariance matrix
+
 
 Our results include the test run over all three of these days.
 
@@ -279,6 +281,9 @@ You can run the test on a particular day by uncommenting the particular day of i
 parameters.data.testdata = 121; % day 3704
 %parameters.data.testdata = 104; % day 3484
 %parameters.data.testdata = 82; % day 3344
+
+**If you have limited computational resources, you can again change this to true:
+parameters.KL.transpose: whether to speed up the computation by using a linear algebra trick on the covariance matrix
 
 
 Our results include the test run over all three of these days.
